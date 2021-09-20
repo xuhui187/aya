@@ -5,6 +5,7 @@ on:
     branches:
       - main
       - ci
+      - perf-event
 
   pull_request:
     branches:
