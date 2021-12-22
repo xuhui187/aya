@@ -1,6 +1,6 @@
 use crate::{
     generated::{
-        bpf_attach_type::{BPF_SK_SKB_STREAM_PARSER, BPF_SK_SKB_STREAM_VERDICT},
+        bpf_attach_type::{BPF_SK_SKB_STREAM_PARSER, BPF_SK_SKB_STREAM_VERDICT, BPF_SK_SKB_VERDICT},
         bpf_prog_type::BPF_PROG_TYPE_SK_SKB,
     },
     maps::sock::SocketMap,
@@ -15,6 +15,7 @@ pub enum SkSkbKind {
     StreamParser,
     /// A Stream Verdict
     StreamVerdict,
+    SKBVerdict
 }
 
 /// A program used to intercept ingress socket buffers.
@@ -68,6 +69,7 @@ impl SkSkb {
         let attach_type = match self.kind {
             SkSkbKind::StreamParser => BPF_SK_SKB_STREAM_PARSER,
             SkSkbKind::StreamVerdict => BPF_SK_SKB_STREAM_VERDICT,
+            SkSkbKind::SKBVerdict => BPF_SK_SKB_VERDICT,
         };
         bpf_prog_attach(prog_fd, map_fd, attach_type).map_err(|(_, io_error)| {
             ProgramError::SyscallError {
