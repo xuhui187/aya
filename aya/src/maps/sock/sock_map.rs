@@ -10,7 +10,7 @@ use std::{
 use crate::{
     generated::bpf_map_type::BPF_MAP_TYPE_SOCKMAP,
     maps::{sock::SocketMap, Map, MapError, MapKeys, MapRef, MapRefMut},
-    sys::{bpf_map_delete_elem, bpf_map_update_elem},
+    sys::{bpf_map_delete_elem, bpf_map_update_elem, bpf_map_lookup_elem},
 };
 
 /// An array of TCP or UDP sockets.
@@ -113,7 +113,7 @@ impl<T: Deref<Target = Map> + DerefMut<Target = Map>> SockMap<T> {
             })
     }
 
-    pub fn get(&self, index: u32, flags: u64) -> Result<(), MapError> {
+    pub fn get(&self, index: u32, flags: u64) -> Result<RawFd, MapError> {
         let fd = self.inner.deref().fd_or_err()?;
         let value = bpf_map_lookup_elem(fd, &index, flags).map_err(
             |(code, io_error)| MapError::SyscallError {
