@@ -440,6 +440,10 @@ impl<'a> BpfLoader<'a> {
                             data,
                             kind: SkSkbKind::StreamVerdict,
                         }),
+                        ProgramSection::SkSkbVerdict { .. } => Program::SkSkb(SkSkb {
+                            data,
+                            kind: SkSkbKind::SKBVerdict,
+                        }),
                         ProgramSection::SockOps { .. } => Program::SockOps(SockOps { data }),
                         ProgramSection::SchedClassifier { .. } => {
                             Program::SchedClassifier(SchedClassifier {
@@ -753,6 +757,7 @@ pub enum BpfError {
     ProgramError(#[from] ProgramError),
 }
 
+<<<<<<< HEAD
 fn load_btf(raw_btf: Vec<u8>) -> Result<RawFd, BtfError> {
     let mut logger = VerifierLog::new();
     let ret = retry_with_verifier_logs(10, &mut logger, |logger| {
@@ -772,3 +777,5 @@ fn load_btf(raw_btf: Vec<u8>) -> Result<RawFd, BtfError> {
         }
     }
 }
+=======
+>>>>>>> support sk_skb/sk_verdict section

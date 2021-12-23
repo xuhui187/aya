@@ -113,6 +113,7 @@ pub enum ProgramSection {
     SkMsg { name: String },
     SkSkbStreamParser { name: String },
     SkSkbStreamVerdict { name: String },
+    SkSkbVerdict { name: String },
     SockOps { name: String },
     SchedClassifier { name: String },
     CgroupSkbIngress { name: String },
@@ -140,6 +141,7 @@ impl ProgramSection {
             ProgramSection::SkMsg { name } => name,
             ProgramSection::SkSkbStreamParser { name } => name,
             ProgramSection::SkSkbStreamVerdict { name } => name,
+            ProgramSection::SkSkbVerdict { name } => name,
             ProgramSection::SockOps { name } => name,
             ProgramSection::SchedClassifier { name } => name,
             ProgramSection::CgroupSkbIngress { name } => name,
@@ -189,6 +191,7 @@ impl FromStr for ProgramSection {
             "sk_skb" => match &*name {
                 "stream_parser" => SkSkbStreamParser { name },
                 "stream_verdict" => SkSkbStreamVerdict { name },
+                "sk_verdict" => SkSkbVerdict { name },
                 _ => {
                     return Err(ParseError::InvalidProgramSection {
                         section: section.to_owned(),
@@ -197,6 +200,7 @@ impl FromStr for ProgramSection {
             },
             "sk_skb/stream_parser" => SkSkbStreamParser { name },
             "sk_skb/stream_verdict" => SkSkbStreamVerdict { name },
+            "sk_skb/sk_verdict" => SkSkbVerdict { name },
             "sockops" => SockOps { name },
             "classifier" => SchedClassifier { name },
             "cgroup_skb/ingress" => CgroupSkbIngress { name },
@@ -1475,3 +1479,4 @@ mod tests {
         assert_eq!(test_data, map.data);
     }
 }
+
