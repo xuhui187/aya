@@ -112,6 +112,18 @@ impl<T: Deref<Target = Map> + DerefMut<Target = Map>> SockMap<T> {
                 io_error,
             })
     }
+
+    pub fn get(&self, index: u32, flags: u64) -> Result<(), MapError> {
+        let fd = self.inner.deref().fd_or_err()?;
+        let value = bpf_map_lookup_elem(fd, &index, flags).map_err(
+            |(code, io_error)| MapError::SyscallError {
+                call: "bpf_map_update_elem".to_owned(),
+                code,
+                io_error,
+            },
+        )?;
+        value.ok_or(MapError::KeyNotFound)
+    }
 }
 
 impl<T: Deref<Target = Map> + DerefMut<Target = Map>> SocketMap for SockMap<T> {
