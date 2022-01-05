@@ -59,7 +59,7 @@ impl<T: Deref<Target = Map>> SockMap<T> {
             return Err(MapError::InvalidKeySize { size, expected });
         }
 
-        let expected = mem::size_of::<RawFd>();
+        let expected = mem::size_of::<u64>();
         let size = map.obj.def.value_size as usize;
         if size != expected {
             return Err(MapError::InvalidValueSize { size, expected });
