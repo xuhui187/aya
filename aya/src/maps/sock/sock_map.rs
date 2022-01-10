@@ -41,6 +41,7 @@ use crate::{
 /// # Ok::<(), aya::BpfError>(())
 /// ```
 #[doc(alias = "BPF_MAP_TYPE_SOCKMAP")]
+#[derive(Copy, Clone)]
 pub struct SockMap<T: Deref<Target = Map>> {
     pub(crate) inner: T,
 }

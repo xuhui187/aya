@@ -34,6 +34,7 @@ use crate::{
 /// ```
 #[doc(alias = "BPF_MAP_TYPE_HASH")]
 #[doc(alias = "BPF_MAP_TYPE_LRU_HASH")]
+#[derive(Copy, Clone)]
 pub struct HashMap<T: Deref<Target = Map>, K, V> {
     inner: T,
     _k: PhantomData<K>,
