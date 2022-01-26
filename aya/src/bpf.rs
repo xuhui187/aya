@@ -757,7 +757,6 @@ pub enum BpfError {
     ProgramError(#[from] ProgramError),
 }
 
-<<<<<<< HEAD
 fn load_btf(raw_btf: Vec<u8>) -> Result<RawFd, BtfError> {
     let mut logger = VerifierLog::new();
     let ret = retry_with_verifier_logs(10, &mut logger, |logger| {
@@ -777,5 +776,3 @@ fn load_btf(raw_btf: Vec<u8>) -> Result<RawFd, BtfError> {
         }
     }
 }
-=======
->>>>>>> support sk_skb/sk_verdict section
