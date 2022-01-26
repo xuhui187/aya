@@ -308,6 +308,11 @@ pub fn stream_verdict(attrs: TokenStream, item: TokenStream) -> TokenStream {
     sk_skb(SkSkbKind::StreamVerdict, attrs, item)
 }
 
+#[proc_macro_attribute]
+pub fn sk_verdict(attrs: TokenStream, item: TokenStream) -> TokenStream {
+    sk_skb(SkSkbKind::SkSkbVerdict, attrs, item)
+}
+
 fn sk_skb(kind: SkSkbKind, attrs: TokenStream, item: TokenStream) -> TokenStream {
     let args = parse_macro_input!(attrs as Args);
     let item = parse_macro_input!(item as ItemFn);

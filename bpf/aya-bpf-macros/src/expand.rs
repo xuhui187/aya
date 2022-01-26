@@ -452,6 +452,7 @@ impl BtfTracePoint {
 pub enum SkSkbKind {
     StreamVerdict,
     StreamParser,
+    SKBVerdict,
 }
 
 impl std::fmt::Display for SkSkbKind {
@@ -460,6 +461,7 @@ impl std::fmt::Display for SkSkbKind {
         match self {
             StreamVerdict => write!(f, "stream_verdict"),
             StreamParser => write!(f, "stream_parser"),
+            SKBVerdict => write!(f, "sk_verdict")
         }
     }
 }
