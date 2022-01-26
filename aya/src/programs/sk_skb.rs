@@ -71,6 +71,8 @@ impl SkSkb {
             SkSkbKind::StreamVerdict => BPF_SK_SKB_STREAM_VERDICT,
             SkSkbKind::SKBVerdict => BPF_SK_SKB_VERDICT,
         };
+
+        println!("====attach_type kind is {:?}, prog_fd: {:?}, map_fd: {:?}", attach_type, prog_fd, map_fd);
         bpf_prog_attach(prog_fd, map_fd, attach_type).map_err(|(_, io_error)| {
             ProgramError::SyscallError {
                 call: "bpf_prog_attach".to_owned(),
